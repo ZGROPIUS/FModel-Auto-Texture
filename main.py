@@ -80,7 +80,7 @@ def setup_material(context, json_file_path, texture_directories):
             normal_converter.location = (-593, -810)
 
         principled_node.inputs[7].default_value = 0.008
-        principled_node.inputs[8].default_value = (1.0, 0.2, 0.1)
+     # principled_node.inputs[8].default_value = (1.0, 0.2, 0.1)
         principled_node.inputs[11].default_value = 0.8
         mix_rgb_node.blend_type = 'MULTIPLY'
         mix_rgb_node2.blend_type = 'MULTIPLY'
@@ -127,20 +127,20 @@ def setup_material(context, json_file_path, texture_directories):
                             material.node_tree.links.new(texture_node.outputs[0], mix_rgb_node.inputs[1])
                             material.node_tree.links.new(mix_rgb_node.outputs[0], mix_rgb_node2.inputs[1])
                             material.node_tree.links.new(separate_rgb_node.outputs[0], mix_rgb_node2.inputs[2])
-                            material.node_tree.links.new(mix_rgb_node2.outputs[0], principled_node.inputs[0])
+                            material.node_tree.links.new(mix_rgb_node2.outputs[0], principled_node.inputs["Base Color"]
                         elif found_texture_type == "SSS Map":
                             material.node_tree.links.new(texture_node.outputs[0], principled_node.inputs[3])
                         elif found_texture_type == "ORM Map":
                             material.node_tree.links.new(texture_node.outputs[0], separate_rgb_node.inputs[0])
                             material.node_tree.links.new(texture_node.outputs[1], invert_node.inputs[1])
-                            material.node_tree.links.new(invert_node.outputs[0], principled_node.inputs[7])
+                            material.node_tree.links.new(invert_node.outputs[0], principled_node.inputs["Specular IOR Level"]
                             material.node_tree.links.new(separate_rgb_node.outputs[1], principled_node.inputs[9])
                             material.node_tree.links.new(separate_rgb_node.outputs[2], principled_node.inputs[6])
                         elif found_texture_type == "Normal Map":
                             material.node_tree.links.new(texture_node.outputs[0], normal_converter.inputs[0])
                             material.node_tree.links.new(normal_converter.outputs[0], normal_map_node.inputs[1])
                             normal_converter.inputs[1].default_value = opengl_directx_flip
-                            material.node_tree.links.new(normal_map_node.outputs[0], principled_node.inputs[22])
+                            material.node_tree.links.new(normal_map_node.outputs[0], principled_node.inputs["Normal"]
                         elif found_texture_type == "Alpha Mask Texture":
                             material.node_tree.links.new(texture_node.outputs[0], separate_rgb_node3.inputs[0])
                             material.node_tree.links.new(texture_node.outputs[0], mix_rgb_node.inputs[2])
